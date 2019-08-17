@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dogs</string>
+    <string name="error_message">An error occurred while loading data.</string>
+    <string name="dog_name">Dog Name</string>
+    <string name="dog_lifespan">Dog Lifespan</string>
+    <string name="dog_purpose">Dog Purpose</string>
+    <string name="dog_temperament">Dog Temperament</string>
+</resources>
