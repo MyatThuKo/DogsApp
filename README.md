@@ -6,13 +6,18 @@ This app shows a list of dogs in one fragment called listFragment and a detail i
 <b> 8/17/2019 </b>
 <br>
 <ul>
-<li> Finished setting up to create the app </li>
-<li> Finished Navigation </li>
-<li> Finished MVVM and LiveData </li> 
+<li> Finished 3./4. Setting up to create the app and layouts </li>
+<li> Finished 5. Navigation </li>
+<li> Finished 6. MVVM and LiveData </li> 
 </ul>
 Demo of the current version
 <br>
 <img src="Screenshots/ListFragment.png" width = "250"> <img src="Screenshots/DetailFragment.png" width = "250">
 </p>
-
+<p> 
+  <b> 8/18/2019 </b>
+<ul>
+<li> Finished 7. Retrofit and RxJava </li>
+<li> Finished 8. Glide </li>
+</ul>
 <b><i>This app will be updated in future.</i></b>
