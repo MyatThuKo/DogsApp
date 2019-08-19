@@ -20,4 +20,5 @@ Demo of the current version
 <li> Finished 7. Retrofit and RxJava </li>
 <li> Finished 8. Glide </li>
 </ul>
+<img src="Screenshots/dogsApp.gif" width = "250">
 <b><i>This app will be updated in future.</i></b>
