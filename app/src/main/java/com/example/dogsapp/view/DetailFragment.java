@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.dogsapp.R;
 import com.example.dogsapp.model.DogBreed;
+import com.example.dogsapp.utils.Util;
 import com.example.dogsapp.viewmodel.DetailViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -53,7 +55,6 @@ public class DetailFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,23 +66,27 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             dogUuid = DetailFragmentArgs.fromBundle(getArguments()).getDogUuid();
         }
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
-        viewModel.fetch();
+        viewModel.fetch(dogUuid);
 
         observeViewModel();
     }
 
     private void observeViewModel() {
         viewModel.dogLiveData.observe(this, dogBreed -> {
-            if(dogBreed != null && dogBreed instanceof DogBreed) {
+            if (dogBreed != null && dogBreed instanceof DogBreed && getContext() != null) {
                 dogName.setText(dogBreed.dogBreed);
                 dogPurpose.setText(dogBreed.bredFor);
                 dogTemperament.setText(dogBreed.temperament);
                 dogLifespan.setText(dogBreed.lifeSpan);
+
+                if (dogBreed.imageUrl != null) {
+                    Util.loadImage(dogImage, dogBreed.imageUrl, new CircularProgressDrawable(getContext()));
+                }
             }
         });
     }
