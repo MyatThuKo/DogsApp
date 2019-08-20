@@ -78,6 +78,14 @@ public class ListFragment extends Fragment {
         dogsList.setLayoutManager(new LinearLayoutManager(getContext()));
         dogsList.setAdapter(dogsListAdapter);
 
+        refreshLayout.setOnRefreshListener(() -> {
+            dogsList.setVisibility(View.GONE);
+            listError.setVisibility(View.GONE);
+            loadingView.setVisibility(View.VISIBLE);
+            viewModel.refreshByassCache();
+            refreshLayout.setRefreshing(false);
+        });
+
         observeViewModel();
     }
 
@@ -98,7 +106,7 @@ public class ListFragment extends Fragment {
         viewModel.loading.observe(this, isLoading -> {
             if (isLoading != null && isLoading instanceof Boolean) {
                 loadingView.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-                if(isLoading) {
+                if (isLoading) {
                     listError.setVisibility(View.GONE);
                     dogsList.setVisibility(View.GONE);
                 }
