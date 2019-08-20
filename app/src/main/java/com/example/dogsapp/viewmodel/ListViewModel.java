@@ -32,13 +32,14 @@ public class ListViewModel extends AndroidViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private AsyncTask<List<DogBreed>, Void, List<DogBreed>> insertTask;
+    private AsyncTask<Void, Void, List<DogBreed>> retrieveTask;
 
     public ListViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void refresh() {
-        fetchFromRemote();
+        fetchFromDatabase();
     }
 
     private void fetchFromRemote() {
@@ -65,6 +66,12 @@ public class ListViewModel extends AndroidViewModel {
         );
     }
 
+    private void fetchFromDatabase() {
+        loading.setValue(true);
+        retrieveTask = new RetrieveDogsTask();
+        retrieveTask.execute();
+    }
+
     private void dogsRetrieved(List<DogBreed> dogList) {
         dogs.setValue(dogList);
         dogLoadError.setValue(false);
@@ -79,6 +86,11 @@ public class ListViewModel extends AndroidViewModel {
         if (insertTask != null) {
             insertTask.cancel(true);
             insertTask = null;
+        }
+
+        if (retrieveTask != null) {
+            retrieveTask.cancel(true);
+            retrieveTask = null;
         }
     }
 
@@ -105,6 +117,21 @@ public class ListViewModel extends AndroidViewModel {
         @Override
         protected void onPostExecute(List<DogBreed> dogBreeds) {
             dogsRetrieved(dogBreeds);
+        }
+    }
+
+    private class RetrieveDogsTask extends AsyncTask<Void, Void, List<DogBreed>> {
+
+        @Override
+        protected List<DogBreed> doInBackground(Void... voids) {
+            return DogDatabase.getInstance(getApplication()).dogDao().getAllDogs();
+        }
+
+        //List<DogBreed> dogBreeds in the following onPostExecute method is from the above doInBackground method. (From Database)
+        @Override
+        protected void onPostExecute(List<DogBreed> dogBreeds) {
+            dogsRetrieved(dogBreeds);
+            Toast.makeText(getApplication(), "Dogs retrieved from database.", Toast.LENGTH_LONG).show();
         }
     }
 }
