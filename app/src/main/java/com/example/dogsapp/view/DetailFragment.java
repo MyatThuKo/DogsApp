@@ -1,6 +1,8 @@
 package com.example.dogsapp.view;
 
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.palette.graphics.Palette;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.view.LayoutInflater;
@@ -20,9 +23,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.dogsapp.R;
 import com.example.dogsapp.databinding.FragmentDetailBinding;
 import com.example.dogsapp.model.DogBreed;
+import com.example.dogsapp.model.DogPalette;
 import com.example.dogsapp.utils.Util;
 import com.example.dogsapp.viewmodel.DetailViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -68,7 +75,32 @@ public class DetailFragment extends Fragment {
         viewModel.dogLiveData.observe(this, dogBreed -> {
             if (dogBreed != null && dogBreed instanceof DogBreed && getContext() != null) {
                 binding.setDog(dogBreed);
+                if (dogBreed.imageUrl != null) {
+                    setupBackgroundColor(dogBreed.imageUrl);
+                }
             }
         });
+    }
+
+    private void setupBackgroundColor(String url) {
+        Glide.with(this)
+                .asBitmap()
+                .load(url)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Palette.from(resource)
+                                .generate(palette -> {
+                                    int color = palette.getMutedSwatch().getRgb();
+                                    DogPalette palette1 = new DogPalette(color);
+                                    binding.setPalette(palette1);
+                                });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
     }
 }
