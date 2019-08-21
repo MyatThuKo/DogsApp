@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dogsapp.R;
+import com.example.dogsapp.databinding.FragmentDetailBinding;
 import com.example.dogsapp.model.DogBreed;
 import com.example.dogsapp.utils.Util;
 import com.example.dogsapp.viewmodel.DetailViewModel;
@@ -35,21 +37,7 @@ public class DetailFragment extends Fragment {
 
     private int dogUuid;
     private DetailViewModel viewModel;
-
-    @BindView(R.id.dogImage)
-    ImageView dogImage;
-
-    @BindView(R.id.dogName)
-    TextView dogName;
-
-    @BindView(R.id.dogPurpose)
-    TextView dogPurpose;
-
-    @BindView(R.id.dogTemperament)
-    TextView dogTemperament;
-
-    @BindView(R.id.dogLifespan)
-    TextView dogLifespan;
+    private FragmentDetailBinding binding;
 
     public DetailFragment() {
 
@@ -58,9 +46,9 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        FragmentDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
+        this.binding = binding;
+        return binding.getRoot();
     }
 
     @Override
@@ -79,14 +67,7 @@ public class DetailFragment extends Fragment {
     private void observeViewModel() {
         viewModel.dogLiveData.observe(this, dogBreed -> {
             if (dogBreed != null && dogBreed instanceof DogBreed && getContext() != null) {
-                dogName.setText(dogBreed.dogBreed);
-                dogPurpose.setText(dogBreed.bredFor);
-                dogTemperament.setText(dogBreed.temperament);
-                dogLifespan.setText(dogBreed.lifeSpan);
-
-                if (dogBreed.imageUrl != null) {
-                    Util.loadImage(dogImage, dogBreed.imageUrl, new CircularProgressDrawable(getContext()));
-                }
+                binding.setDog(dogBreed);
             }
         });
     }
