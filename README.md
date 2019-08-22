@@ -14,7 +14,9 @@ This app shows a list of dogs in one fragment called listFragment and a detail i
 </ul>
 Demo of the current version
 <br>
-<img src="Screenshots/ListFragment.png" width = "250"> <img src="Screenshots/DetailFragment.png" width = "250">
+<div>
+<img src="Screenshots/ListFragment.png" width = "250">          <img src="Screenshots/DetailFragment.png" width = "250">
+</div>
 </p>
 
 <p> 
@@ -33,4 +35,18 @@ Demo of the current version
   </ul>
   <img src="Screenshots/update1.gif" width = "250">
 </p>
+
+<p> 
+  <b> 8/21/2019 </b>
+<ul>
+  <li> Finished 10. Data Binding </li> 
+  <li> Finished 11. Palette </li>
+  <li> Finished 12. Notification </li>
+  <li> Finished 13. Preferences </li>
+</ul>
+Demo of the palette and the app
+<br>
+<div>
+<img src="Screenshots/palette.png" width="250">        <img src="Screenshots/August21.gif" width="250">
+</div>
 <b><i>This app will be updated in future.</i></b>
