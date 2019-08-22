@@ -70,9 +70,13 @@ dependencies {
 
     implementation "androidx.preference:preference:$preferencesVersion"
 
+    //The following two implementations added for Multidex {
+
     implementation "com.google.firebase:firebase-core:16.0.8"
 
     implementation "com.android.support:multidex:1.0.3"
+
+    //}
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
