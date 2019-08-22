@@ -1,6 +1,7 @@
 package com.example.dogsapp.viewmodel;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class ListViewModel extends AndroidViewModel {
     }
 
     public void refresh() {
+        checkCacheDuration();
         long updateTime = prefHelper.getUpdateTime();
         long currentTime = System.nanoTime();
 
@@ -56,6 +58,19 @@ public class ListViewModel extends AndroidViewModel {
 
     public void refreshByassCache() {
         fetchFromRemote();
+    }
+
+    private void checkCacheDuration() {
+        String cachePreference = prefHelper.getCacheDuration();
+
+        if (!cachePreference.equals(" ")) {
+            try {
+                int cachePreferenceInt = Integer.parseInt(cachePreference);
+                refreshTime = cachePreferenceInt * 1000 * 1000 * 1000L;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void fetchFromRemote() {
