@@ -49,4 +49,12 @@ Demo of the palette and the app
 <div>
 <img src="Screenshots/palette.png" width="250">        <img src="Screenshots/August21.gif" width="250">
 </div>
-<b><i>This app will be updated in future.</i></b>
+<b>8/22/2019</b>
+<ul> 
+  <li>Finished 14. Permission and Sharing</li>
+  <li>Finished 15. Multidex</li>
+</ul>
+This is the final version of the app.
+<br>
+<img src="Screenshots/final.gif" width="250">
+
