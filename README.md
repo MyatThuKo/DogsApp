@@ -3,7 +3,19 @@
 
 <p> 
 This app shows a list of dogs in one fragment called listFragment and a detail info about a particular dog in one fragment called DetailFragment. </p>
-
+This app uses the following. 
+<ul>
+  <li>Android jetpack</li>
+  <li>Android development</li>
+  <li>MVVM</li>
+  <li>Navigation</li>
+  <li>Permissions</li>
+  <li>Room</li>
+  <li>Data Binding</li>
+  <li>Notifiications</li>
+  <li>Java</li>
+</ul>
+  
 <p>
 <b> 8/17/2019 </b>
 <br>
